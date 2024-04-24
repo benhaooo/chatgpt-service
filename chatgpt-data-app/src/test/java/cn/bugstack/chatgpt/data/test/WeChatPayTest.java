@@ -11,7 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description 微信支付测试
  * <p>
  * 【支付渠道选择】

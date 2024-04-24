@@ -8,9 +8,7 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description 商品对象 DTO
- * @create 2023-10-05 20:59
  */
 @Data
 @Builder

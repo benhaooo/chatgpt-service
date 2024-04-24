@@ -7,9 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description 支付单实体
- * @create 2023-10-05 11:46
  */
 @Data
 @Builder

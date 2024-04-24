@@ -6,9 +6,7 @@ import cn.bugstack.chatgpt.data.domain.openai.model.entity.UserAccountQuotaEntit
 import java.util.List;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description OpenAi 仓储接口
- * @create 2023-10-03 16:49
  */
 public interface IOpenAiRepository {
 

@@ -11,9 +11,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description 订单实体对象
- * @create 2023-10-05 11:37
  */
 @Data
 @Builder

@@ -13,9 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.annotation.Resource;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description 订单服务测试
- * @create 2023-10-05 16:49
  */
 @Slf4j
 @RunWith(SpringRunner.class)

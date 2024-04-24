@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description OpenAi 渠道
- * @create 2023-10-15 14:01
  */
 @Getter
 @AllArgsConstructor

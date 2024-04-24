@@ -7,9 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description 规则校验结果实体
- * @create 2023-09-16 17:02
  */
 @Data
 @NoArgsConstructor

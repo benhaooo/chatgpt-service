@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.request.AlipayDataDataserviceBillDownloadurlQueryRequest;
 import com.alipay.api.request.AlipayTradeQueryRequest;
+import com.alipay.api.response.AlipayTradeQueryResponse;
 import com.google.common.eventbus.EventBus;
 import com.wechat.pay.java.service.payments.model.Transaction;
 import com.wechat.pay.java.service.payments.nativepay.NativePayService;
@@ -33,6 +34,10 @@ public class NoPayNotifyOrderJob {
     private IOrderService orderService;
     @Autowired(required = false)
     private AlipayClient alipayClient;
+
+    @Value("${alipay.config.app_id}")
+    private String app_id;
+
     @Resource
     private EventBus eventBus;
 
@@ -43,10 +48,10 @@ public class NoPayNotifyOrderJob {
     @Scheduled(cron = "0/3 * * * * ?")
     public void exec() {
         try {
-//            if (null == alipayClient) {
-//                log.info("定时任务，订单支付状态更新。应用未配置支付渠道，任务不执行。");
-//                return;
-//            }
+            if (null == alipayClient) {
+                log.info("定时任务，订单支付状态更新。应用未配置支付渠道，任务不执行。");
+                return;
+            }
             List<String> orderIds = orderService.queryNoPayNotifyOrder();
             if (orderIds.isEmpty()) {
                 log.info("定时任务，订单支付状态更新，暂无未更新订单 orderId is null");
@@ -58,22 +63,25 @@ public class NoPayNotifyOrderJob {
 //                request.setMchid(mchid);
 //                request.setOutTradeNo(orderId);
 //                Transaction transaction = payService.queryOrderByOutTradeNo(request);
-//                if (!Transaction.TradeStateEnum.SUCCESS.equals(transaction.getTradeState())) {
-//                    log.info("定时任务，订单支付状态更新，当前订单未支付 orderId is {}", orderId);
-//                    continue;
-//                }
+
 
                 AlipayTradeQueryRequest alipayTradeQueryRequest = new AlipayTradeQueryRequest();
                 JSONObject bizContent = new JSONObject();
                 bizContent.put("out_trade_no", orderId);
 //                bizContent.put("trade_no", trade_no);
                 alipayTradeQueryRequest.setBizContent(bizContent.toString());
+                AlipayTradeQueryResponse trade = alipayClient.execute(alipayTradeQueryRequest);
+                if (!"TRADE_SUCCESS".equals(trade.getTradeStatus())) {
+                    log.info("定时任务，订单支付状态更新，当前订单未支付 orderId is {}", orderId);
+                    continue;
+                }
 
                 // 支付单号
-                String transactionId = transaction.getTransactionId();
-                Integer total = transaction.getAmount().getTotal();
+                String transactionId = trade.getTradeNo();
+                String total = trade.getTotalAmount();
                 BigDecimal totalAmount = new BigDecimal(total).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
-                String successTime = transaction.getSuccessTime();
+                String successTime = trade.getSendPayDate().toString();
+
                 // 更新订单
                 boolean isSuccess = orderService.changeOrderPaySuccess(orderId, transactionId, totalAmount, dateFormat.parse(successTime));
                 if (isSuccess) {

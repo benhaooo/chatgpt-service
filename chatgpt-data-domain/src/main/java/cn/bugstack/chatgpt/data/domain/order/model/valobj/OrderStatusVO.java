@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description 订单状态
- * @create 2023-10-05 07:20
  */
 @Getter
 @AllArgsConstructor

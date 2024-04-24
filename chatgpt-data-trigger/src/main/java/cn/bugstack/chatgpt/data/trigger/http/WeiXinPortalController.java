@@ -14,9 +14,7 @@ import javax.annotation.Resource;
 import java.util.Date;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description 微信公众号，验签和请求应答
- * @create 2023-08-05 16:50
  */
 @Slf4j
 @RestController

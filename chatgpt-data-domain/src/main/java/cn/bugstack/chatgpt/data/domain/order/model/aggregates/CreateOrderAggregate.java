@@ -8,9 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description 下单聚合对象
- * @create 2023-10-05 11:45
  */
 @Data
 @Builder

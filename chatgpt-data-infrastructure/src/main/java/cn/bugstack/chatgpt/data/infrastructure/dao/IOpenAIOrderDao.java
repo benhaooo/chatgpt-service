@@ -7,9 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description 订单Dao
- * @create 2023-10-05 13:27
  */
 @Mapper
 public interface IOpenAIOrderDao {

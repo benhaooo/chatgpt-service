@@ -5,9 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description
- * @create 2023-08-05 18:32
  */
 @Getter
 @NoArgsConstructor

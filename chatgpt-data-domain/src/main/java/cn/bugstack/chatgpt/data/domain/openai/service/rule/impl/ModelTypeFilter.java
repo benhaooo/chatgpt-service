@@ -13,9 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description 允许访问的模型过滤
- * @create 2023-10-03 16:53
  */
 @Slf4j
 @Component

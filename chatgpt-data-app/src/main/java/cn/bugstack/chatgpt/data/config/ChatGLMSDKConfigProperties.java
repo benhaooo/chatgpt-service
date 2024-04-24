@@ -4,9 +4,7 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description ChatGLMSDKConfigProperties
- * @create 2023-10-14 16:00
  */
 @Data
 @ConfigurationProperties(prefix = "chatglm.sdk.config", ignoreInvalidFields = true)

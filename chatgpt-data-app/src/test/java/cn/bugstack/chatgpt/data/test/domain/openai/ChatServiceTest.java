@@ -18,9 +18,7 @@ import java.util.Collections;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description 对话测试
- * @create 2023-10-03 18:13
  */
 @Slf4j
 @RunWith(SpringRunner.class)

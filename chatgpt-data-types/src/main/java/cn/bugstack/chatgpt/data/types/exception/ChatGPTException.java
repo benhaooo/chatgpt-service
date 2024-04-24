@@ -1,9 +1,7 @@
 package cn.bugstack.chatgpt.data.types.exception;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description
- * @create 2023-07-16 10:08
  */
 public class ChatGPTException extends RuntimeException {
 

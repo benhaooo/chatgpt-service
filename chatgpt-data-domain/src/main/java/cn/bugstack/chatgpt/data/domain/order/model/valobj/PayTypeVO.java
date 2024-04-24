@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description 支付类型
- * @create 2023-09-29 08:29
  */
 @Getter
 @AllArgsConstructor

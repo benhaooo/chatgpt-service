@@ -11,9 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description 订单仓储接口
- * @create 2023-10-05 13:11
  */
 public interface IOrderRepository {
 

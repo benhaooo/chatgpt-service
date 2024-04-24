@@ -8,9 +8,7 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description 用户行为信息
- * @create 2023-08-05 17:11
  */
 @Data
 @Builder

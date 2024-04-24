@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description 商品实体对象
- * @create 2023-10-05 11:42
  */
 @Data
 @Builder

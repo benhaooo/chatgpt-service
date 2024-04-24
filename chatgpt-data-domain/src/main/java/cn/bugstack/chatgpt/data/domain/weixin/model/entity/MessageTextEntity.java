@@ -3,9 +3,7 @@ package cn.bugstack.chatgpt.data.domain.weixin.model.entity;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description 消息实体
- * @create 2023-08-05 17:11
  */
 public class MessageTextEntity {
 

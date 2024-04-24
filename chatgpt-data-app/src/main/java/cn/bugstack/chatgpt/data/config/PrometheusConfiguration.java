@@ -12,9 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description Prometheus
- * @create 2023-10-27 20:52
  */
 @EnableAspectJAutoProxy
 @Configuration

@@ -9,9 +9,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description OpenAI 订单持久化对象
- * @create 2023-10-05 10:31
  */
 @Data
 @Builder

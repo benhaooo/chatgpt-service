@@ -7,9 +7,7 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.Resource;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description 认证仓储服务
- * @create 2023-11-05 15:53
  */
 @Repository
 public class AuthRepository implements IAuthRepository {

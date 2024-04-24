@@ -4,9 +4,7 @@ import cn.bugstack.chatgpt.data.domain.openai.model.aggregates.ChatProcessAggreg
 import cn.bugstack.chatgpt.data.domain.openai.model.entity.RuleLogicEntity;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description 规则过滤接口
- * @create 2023-09-16 16:59
  */
 public interface ILogicFilter<T> {
 

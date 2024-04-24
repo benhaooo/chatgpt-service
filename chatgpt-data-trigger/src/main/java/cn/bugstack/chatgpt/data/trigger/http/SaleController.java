@@ -30,9 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description 售卖服务
- * @create 2023-10-05 17:27
  */
 @Slf4j
 @RestController()

@@ -25,9 +25,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description 订单仓储服务
- * @create 2023-10-05 13:25
  */
 @Repository
 public class OrderRepository implements IOrderRepository {

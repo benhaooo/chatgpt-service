@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description 验签接口实现
- * @create 2023-08-05 16:57
  */
 @Service
 public class WeiXinValidateService implements IWeiXinValidateService {
