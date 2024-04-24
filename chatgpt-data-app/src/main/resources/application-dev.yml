@@ -1,0 +1,146 @@
+server:
+  port: 8091
+  # 1核2G内存，线程数经验值200；4核8G内存【accept-count=1000、max-threads=800、max-connections=10000】，线程数经验值800。线程池过大，cpu调度会消耗大量时间
+  tomcat:
+    mbeanregistry:
+      enabled: true
+    max-connections: 100
+    threads:
+      max: 100        # 设定处理客户请求的线程的最大数目，决定了服务器可以同时响应客户请求的数,默认200
+      min-spare: 50   # 初始化线程数,最小空闲线程数,默认是10
+    accept-count: 10  # 等待队列长度
+
+# 应用配置
+app:
+  config:
+    # 版本，方便通过接口版本升级
+    api-version: v1
+    # 跨域，开发阶段可以设置为 * 不限制
+    cross-origin: '*'
+    # 访问频次限制
+    limit-count: 10
+    # 白名单，不做频次拦截【微信的openai】o0lUX6T-VOOTgElqE-LJOKUEhohc
+    white-list: o0lUX6T-VOOTgElqE-LJOKUEhohc
+
+# 支付配置；如果你申请了支付渠道，则可以配置 enable = true，否则就配置 false 走流程测试
+alipay:
+  config:
+    enabled: true
+    app_id: 9021000135667198
+    merchant_private_key: MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDEaUNqK5GjYY1uLyfCHRRjwn7eeUqZFOagWN7tMJmWiQWUOe0JQ1i0PI5sOi94lhkq2V4ZdS/H/fmqBm1ff3H2+NeLo3SCoiABAwpEG2rUqru3nQTenHMCVPc6BdNeoQwGcxf/GJk6xOpoo9nBiUzfyKsdx+YdJXf+toxcrvOVE6tPh1JSo2mlTIjZ4AC5KNgH7vfyOcEZxqnYGyIaStPPcxVeS4XDM5T+U2rezyqxcI4rPkdzq0auAtZR9cxkv1apdMSiC7Hk5QtOUcYtSGihtapeVynLlRmxsw5J6BADxqJbGWg6KWGKWJDVWlSUoKVp58O6z2xJHB5w+JHK4GZHAgMBAAECggEAX05YyRb1J5t5nmLBXx7vOu0w1NF0Uk3jDyGwotW3YWWB0Ig/LgSA8YyE651cVZ43/iPV1nKXyerCkC9oOTPFYDsllHuvWIhFEVihTaUkNKfYSOOnbkHqSNJj2MLk6wEoraSBm2YbTHoq6LXBP3lZVSmxZtUOI0yAKpf4Ci1WwxobmlcUmBCZYQ9z4sYuK6HJ6+0R5VhDdOwR8h1hQg1DAeI2OgbSSNG/ROvqfG78fEoY+oUigFdGUD3E/9zo7+resLvuBoPuwZyEUT7MCuRdmqgY6bgfMSsptZko+C+qcubSaeO5167SZFb70BaNdRtoJC9zutN2Old8bUo80swGQQKBgQDkVGKiUtfb/O4oJu3F8UWiQYJOcRtKDHoU4FUEI/R9mgvdHCCVNoOddRPNfOBzP+h4V+8BWyMR3cNo9MkeTHT+oDF8iGcFOTYt6TZNIXu+MmQbh+KSy7NF719k42HMZlF1o9+8alEBe0fnNqfKDMcgDYnnweYfD6XcX+jOQC7epwKBgQDcNqbjxJn6PVo9jPUamzGlOPHYAZjBT/D9R3FWvnEFsNMxwImGfi5P2yPpRpUm+ZCbrUe/MGb8ihUvxJH7z8LKxNMCZi7/G2AepII4tFcfcTqWKB1uuxVdWkfjUWFAvJO67CEQc1INIkT+qxFDBlNGr7IzUDBFQ7hTqGfKU+PPYQKBgH/nZXlYvuLUxPRpGjkP9tn1qHEYmxjX9GtNX1J6cbMKYCr0Xqw3ZXMG6pjpozHsUuVXHOO9kd+oQpbAyQjX+5HHWvFP16XtbpQ5V9nNL+xTfhCOBjYFNd+vP9jcJyTBDFDCA8sgI1CZJqY2z7c3gTRLYT0aOTadJWRVtawT+C1xAoGAH+ojwbrKfgPKQkVdeF+pkEJyelWw58NIL8zc1i9/fc2krf8zbzR2Tch6qeI6140vsgAo98JyCoOQkn2wkogHuQ9RbXWVtg8nnQlGfiVUww/L59skeNnQPNlKtd0jdRhfaKW0HQg5igG/chEkzUvrYcEw2FL0y/UGj8lGUYJa78ECgYAApu7sNZLLoKaBsfOjxtSNKdnQy3KYcq1ev80W6P+IKDvsdPWC0sfYlf5LaQ+TUfFLe3J/+MyIXTQp0basAIzMrmOpbl53WeYxHQ3JeU6dtu4n2QfxvWPdDz41uk9MGHUxVXV/N4Un9oJ4d1PEf/cGfprXu3VhaD63VExCXqQe5Q==
+    alipay_public_key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2ArvJb2T7o8EE+w4a/JM3yyg1cihafhwQsVWNqMmSbxNLcZJvvAqBZRJr23wG3ByFrqCb2utaLDLYF7YF9rHP5Py9qdqgrKEDzEXM3nD1rX9fAUwi/gmbvoxHhNkTZNxXezcwM8fJfW81YeKGXVnvQXQFBlZ9z5dh9SvN6O7+YyX30a6NoDr6fsZHLK6tfi67rW8+N3y7nYjzwZgBf+xGf2HBmWK17NVSxKh9vZqVtjaJGEgutOx0oX0AaOwSF5PDaBGieiCakGM9xC+U1raEbIgYc0STlaprj+Imegn15USJ48LWnAkz3t8BwH0ep+rw5tG2xQuS2SzDd2JgxSONQIDAQAB
+    notify_url: http://1b324931.r19.cpolar.top/api/v1/sale/pay_notify
+    return_url: http://localhost:5173/chat/message
+    gatewayUrl: https://openapi-sandbox.dl.alipaydev.com/gateway.do
+
+
+# 线程池配置
+thread:
+  pool:
+    executor:
+      config:
+        core-pool-size: 20
+        max-pool-size: 50
+        keep-alive-time: 5000
+        block-queue-size: 5000
+        policy: CallerRunsPolicy
+
+# ChatGPT SDK Config
+chatgpt:
+  sdk:
+    config:
+      # 状态；true = 开启、false 关闭
+      enabled: true
+      # 官网地址 https://api.openai.com/ 1美金:7人民币
+      api-host: https://api.openai-hk.com/
+      # 官网申请 https://platform.openai.com/account/api-keys
+      api-key: hk-jnirdw1000003982242afd989f4c0da72f772011a587517f
+
+# ChatGLM SDK Config
+chatglm:
+  sdk:
+    config:
+      # 状态；true = 开启、false 关闭
+      enabled: true
+      # 官网地址
+      api-host: https://open.bigmodel.cn/
+      # 官网申请 https://open.bigmodel.cn/usercenter/apikeys - 自己可申请(默认18块的额度很够用)，也推荐测试学习的时候，使用 ChatGLM
+      api-secret-key: d6c542075d182c2fa44b713e7c09f93a.lOGBFK5ZKq3gwLki
+
+# 微信公众号配置信息
+# originalid：原始ID
+# appid：个人AppID
+# token：开通接口服务自定义设置
+wx:
+  config:
+    originalid: gh_5ca588989747
+    appid: wx4909e19dab147f5b
+    token: haohao
+
+# 数据库配置；SpringBoot 默认连接池为 HikariDataSource
+spring:
+  datasource:
+    username: root
+    password: 201719
+    url: jdbc:mysql://127.0.0.1:3306/openai?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC&useSSL=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  hikari:
+    pool-name: Retail_HikariCP
+    minimum-idle: 15 #最小空闲连接数量
+    idle-timeout: 180000 #空闲连接存活最大时间，默认600000（10分钟）
+    maximum-pool-size: 25 #连接池最大连接数，默认是10
+    auto-commit: true  #此属性控制从池返回的连接的默认自动提交行为,默认值：true
+    max-lifetime: 1800000 #此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认1800000即30分钟
+    connection-timeout: 30000 #数据库连接超时时间,默认30秒，即30000
+    connection-test-query: SELECT 1
+  type: com.zaxxer.hikari.HikariDataSource
+
+mybatis:
+  mapper-locations: classpath:/mybatis/mapper/*.xml
+  config-location:  classpath:/mybatis/config/mybatis-config.xml
+
+# Redis
+redis:
+  sdk:
+    config:
+      host: 127.0.0.1
+      port: 6379
+      pool-size: 10
+      min-idle-size: 5
+      idle-timeout: 30000
+      connect-timeout: 5000
+      retry-attempts: 3
+      retry-interval: 1000
+      ping-interval: 60000
+      keep-alive: true
+
+# 监控
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" # 暴露所有端点，包括自定义端点
+  endpoint:
+    metrics:
+      enabled: true
+    health:
+      show-details: always # 显示详细的健康检查信息
+  metrics:
+    export:
+      prometheus:
+        enabled: true # 启用Prometheus
+  prometheus:
+    enabled: true # 启用Prometheus端点
+  jmx:
+    enabled: true # 启用JMX监控
+  system:
+    cpu:
+      enabled: true # 启用CPU监控
+    memory:
+      enabled: true # 启用内存监控
+
+# 日志
+logging:
+  level:
+    root: info
+  config: classpath:logback-spring.xml
