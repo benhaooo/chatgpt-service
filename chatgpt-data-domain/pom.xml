@@ -49,12 +49,20 @@
             <artifactId>commons-codec</artifactId>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>it.hao.chatgpt</groupId>-->
+<!--            <artifactId>chatgpt-sdk-java</artifactId>-->
+<!--        </dependency>-->
         <dependency>
-            <groupId>it.hao.chatgpt</groupId>
-            <artifactId>chatgpt-sdk-java</artifactId>
+            <groupId>cn.bugstack</groupId>
+            <artifactId>openai-sdk-java</artifactId>
         </dependency>
         <dependency>
-            <groupId>it.hao</groupId>
+            <groupId>com.unfbx</groupId>
+            <artifactId>chatgpt-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.bugstack</groupId>
             <artifactId>chatglm-sdk-java</artifactId>
         </dependency>
 

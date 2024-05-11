@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.Duration;
+import java.util.List;
 
 /**
  * Redis 服务 - Redisson
@@ -92,6 +93,11 @@ public class RedissonService implements IRedisService {
     public String getFromList(String key, int index) {
         RList<String> list = redissonClient.getList(key);
         return list.get(index);
+    }
+
+    public List<String> getListAll(String key) {
+        RList<String> list = redissonClient.getList(key);
+        return list.readAll();
     }
 
     public void addToMap(String key, String field, String value) {

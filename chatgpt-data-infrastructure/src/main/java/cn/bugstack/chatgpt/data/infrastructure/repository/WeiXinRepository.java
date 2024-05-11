@@ -9,6 +9,7 @@ import org.redisson.api.RLock;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -19,6 +20,8 @@ import java.util.concurrent.TimeUnit;
 public class WeiXinRepository implements IWeiXinRepository {
 
     private static final String Key = "weixin_code";
+
+    private static final String History_Key = "weixin_history_key";
 
     @Resource
     private IRedisService redisService;
@@ -57,5 +60,13 @@ public class WeiXinRepository implements IWeiXinRepository {
             lock.unlock();
         }
     }
+
+    @Override
+    public List<String> historyMsg(String openId, String msg) {
+        List<String> msgList = redisService.getListAll(History_Key + "_" + openId);
+        redisService.addToList(History_Key + "_" + openId, msg);
+        return msgList;
+    }
+
 
 }

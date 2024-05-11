@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 /**
- * @description
+ * @description 流程类
  */
 @Data
 @Builder

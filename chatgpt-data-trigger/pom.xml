@@ -46,11 +46,15 @@
             <artifactId>hystrix-javanica</artifactId>
         </dependency>
 
-        <!-- chatgpt-sdk-java https://gitcode.net/KnowledgePlanet/chatgpt/chatgpt-sdk-java-->
-        <dependency>
-            <groupId>it.hao.chatgpt</groupId>
-            <artifactId>chatgpt-sdk-java</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>it.hao.chatgpt</groupId>-->
+<!--            <artifactId>chatgpt-sdk-java</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>cn.bugstack</groupId>-->
+<!--            <artifactId>chatglm-sdk-java</artifactId>-->
+<!--        </dependency>-->
+
         <dependency>
             <groupId>cn.bugstack</groupId>
             <artifactId>chatgpt-data-types</artifactId>

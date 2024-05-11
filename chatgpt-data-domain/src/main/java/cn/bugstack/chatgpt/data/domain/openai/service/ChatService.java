@@ -9,7 +9,6 @@ import cn.bugstack.chatgpt.data.domain.openai.service.channel.impl.ChatGLMServic
 import cn.bugstack.chatgpt.data.domain.openai.service.channel.impl.ChatGPTService;
 import cn.bugstack.chatgpt.data.domain.openai.service.rule.ILogicFilter;
 import cn.bugstack.chatgpt.data.domain.openai.service.rule.factory.DefaultLogicFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

@@ -17,5 +17,5 @@ public class MessageEntity {
     private String role;
     private String content;
     private String name;
-
+    private String img;
 }

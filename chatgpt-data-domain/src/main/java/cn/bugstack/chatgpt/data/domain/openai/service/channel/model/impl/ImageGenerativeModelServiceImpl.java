@@ -1,14 +1,11 @@
 package cn.bugstack.chatgpt.data.domain.openai.service.channel.model.impl;
 
-import cn.bugstack.chatgpt.common.Constants;
 import cn.bugstack.chatgpt.data.domain.openai.model.aggregates.ChatProcessAggregate;
 import cn.bugstack.chatgpt.data.domain.openai.model.entity.MessageEntity;
 import cn.bugstack.chatgpt.data.domain.openai.service.channel.model.IGenerativeModelService;
-import cn.bugstack.chatgpt.domain.images.ImageEnum;
-import cn.bugstack.chatgpt.domain.images.ImageRequest;
-import cn.bugstack.chatgpt.domain.images.ImageResponse;
-import cn.bugstack.chatgpt.domain.images.Item;
-import cn.bugstack.chatgpt.session.OpenAiSession;
+
+import cn.bugstack.openai.executor.parameter.*;
+import cn.bugstack.openai.session.OpenAiSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +30,7 @@ public class ImageGenerativeModelServiceImpl implements IGenerativeModelService 
     private ThreadPoolExecutor executor;
 
     @Override
-    public void doMessageResponse(ChatProcessAggregate chatProcess, ResponseBodyEmitter emitter) throws IOException {
+    public void doMessageResponse(ChatProcessAggregate chatProcess, ResponseBodyEmitter emitter) throws Exception {
         if (null == chatGPTOpenAiSession) {
             emitter.send("DALL-E 通道，模型调用未开启，可以选择其他模型对话！");
             return;
@@ -44,7 +41,7 @@ public class ImageGenerativeModelServiceImpl implements IGenerativeModelService 
         List<MessageEntity> messages = chatProcess.getMessages();
         for (MessageEntity message : messages) {
             String role = message.getRole();
-            if (Constants.Role.USER.getCode().equals(role)) {
+            if (CompletionRequest.Role.USER.getCode().equals(role)) {
                 prompt.append(message.getContent());
                 prompt.append("\r\n");
             }
@@ -72,10 +69,10 @@ public class ImageGenerativeModelServiceImpl implements IGenerativeModelService 
                     emitter.send("![](" + url + ")");
                 }
                 emitter.complete();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 try {
                     emitter.send("您的😭图片生成失败了，请调整说明... \r\n");
-                } catch (IOException ex) {
+                } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
             }

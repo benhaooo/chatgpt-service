@@ -12,12 +12,7 @@ import cn.bugstack.chatgpt.data.domain.openai.service.rule.factory.DefaultLogicF
 import cn.bugstack.chatgpt.data.types.common.Constants;
 import cn.bugstack.chatgpt.data.types.enums.OpenAiChannel;
 import cn.bugstack.chatgpt.data.types.exception.ChatGPTException;
-import cn.bugstack.chatgpt.domain.chat.ChatCompletionRequest;
-import cn.bugstack.chatgpt.domain.chat.ChatCompletionResponse;
-import cn.bugstack.chatgpt.domain.chat.Message;
-import cn.bugstack.chatgpt.session.OpenAiSession;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
 
 import javax.annotation.Resource;
@@ -79,29 +74,29 @@ public abstract class AbstractChatService implements IChatService {
     }
 
 
-    @Autowired(required = false)
-    protected OpenAiSession chatGPTOpenAiSession;
-    @Override
-    public ChatCompletionResponse completions(ChatProcessAggregate chatProcess){
-        List<Message> messages = chatProcess.getMessages().stream()
-                .map(entity -> Message.builder()
-                        .role(cn.bugstack.chatgpt.common.Constants.Role.valueOf(entity.getRole().toUpperCase()))
-                        .content(entity.getContent())
-                        .name(entity.getName())
-                        .build())
-                .collect(Collectors.toList());
-
-        // 2. 封装参数
-        ChatCompletionRequest chatCompletion = ChatCompletionRequest
-                .builder()
-                .stream(false)
-                .messages(messages)
-                .model(chatProcess.getModel())
-                .build();
-
-        ChatCompletionResponse completionResponse = chatGPTOpenAiSession.completions(chatCompletion);
-        return completionResponse;
-    }
+//    @Autowired(required = false)
+//    protected OpenAiSession chatGPTOpenAiSession;
+//    @Override
+//    public ChatCompletionResponse completions(ChatProcessAggregate chatProcess){
+//        List<Message> messages = chatProcess.getMessages().stream()
+//                .map(entity -> Message.builder()
+//                        .role(cn.bugstack.chatgpt.common.Constants.Role.valueOf(entity.getRole().toUpperCase()))
+//                        .content(new Message.Content().setContent(entity.getContent()))
+//                        .name(entity.getName())
+//                        .build())
+//                .collect(Collectors.toList());
+//
+//        // 2. 封装参数
+//        ChatCompletionRequest chatCompletion = ChatCompletionRequest
+//                .builder()
+//                .stream(false)
+//                .messages(messages)
+//                .model(chatProcess.getModel())
+//                .build();
+//
+//        ChatCompletionResponse completionResponse = chatGPTOpenAiSession.completions(chatCompletion);
+//        return completionResponse;
+//    }
 
 
     protected abstract RuleLogicEntity<ChatProcessAggregate> doCheckLogic(ChatProcessAggregate chatProcess, UserAccountQuotaEntity userAccountQuotaEntity, String... logics) throws Exception;

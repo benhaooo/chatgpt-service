@@ -14,7 +14,6 @@ import cn.bugstack.chatgpt.data.types.common.Constants;
 import cn.bugstack.chatgpt.data.types.exception.ChatGPTException;
 import cn.bugstack.chatgpt.data.types.model.Response;
 import cn.bugstack.chatgpt.data.types.sdk.common.ExcelUtils;
-import cn.bugstack.chatgpt.domain.chat.ChatCompletionResponse;
 import com.alibaba.fastjson.JSON;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
@@ -50,7 +49,7 @@ public class ChatGPTAIServiceController {
     IFileService fileService;
 
     @HystrixCommand(commandProperties = {
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5500")
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "10000")
     }, fallbackMethod = "completionsStreamError"
     )
     @RequestMapping(value = "chat/completions", method = RequestMethod.POST)
@@ -89,6 +88,7 @@ public class ChatGPTAIServiceController {
                                     .role(entity.getRole())
                                     .content(entity.getContent())
                                     .name(entity.getName())
+                                    .img(entity.getImg())
                                     .build())
                             .collect(Collectors.toList()))
                     .build();
@@ -115,33 +115,45 @@ public class ChatGPTAIServiceController {
             "{明确的数据分析结论、越详细越好，不要生成多余的注释}";
 
 
-
     @RequestMapping(value = "analysis/chart", method = RequestMethod.POST)
-    public Response<AnalysisChartDTO> analysisChart(@RequestBody AnalysisChatRequest request) {
-        String csv = fileService.getFileUrl(request.getFilehash());
-        log.info("分析图表请求开始，使用模型：{} 请求信息：{} csv：{}", request.getModel(), JSON.toJSONString(request.getGoal()), csv);
+    public ResponseBodyEmitter analysisChart(@RequestBody AnalysisChatRequest request, @RequestHeader("Authorization") String token, HttpServletResponse response) {
 
-        ArrayList<MessageEntity> messages = new ArrayList<>();
-        messages.add(MessageEntity.builder()
-                .content(String.format(prompt, request.getGoal().getContent(), request.getChartType(), csv))
-                .role(request.getGoal().getRole())
-                .name(request.getGoal().getName())
-                .build());
-        ChatProcessAggregate chatProcessAggregate = ChatProcessAggregate.builder()
-                .model(request.getModel())
-                .messages(messages)
-                .build();
-        ChatCompletionResponse completions = chatService.completions(chatProcessAggregate);
-        String content = completions.getChoices().get(0).getMessage().getContent();
-        AnalysisChartDTO analysisChartDTO = new AnalysisChartDTO();
-        analysisChartDTO.setResult(content);
-        return Response.<AnalysisChartDTO>builder()
-                .code(Constants.ResponseCode.SUCCESS.getCode())
-                .info(Constants.ResponseCode.SUCCESS.getInfo())
-                .data(analysisChartDTO)
-                .build();
+        try {
+            response.setContentType("text/event-stream");
+            response.setCharacterEncoding("UTF-8");
+            response.setHeader("Cache-Control", "no-cache");
+            ResponseBodyEmitter emitter = new ResponseBodyEmitter(3 * 60 * 1000L);
+            boolean success = authService.checkToken(token);
+            if (!success) {
+                try {
+                    emitter.send(Constants.ResponseCode.TOKEN_ERROR.getCode());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                emitter.complete();
+                return emitter;
+            }
+            String csv = fileService.getFileUrl(request.getFilehash());
+            String openid = authService.openid(token);
+            log.info("分析图表请求开始，使用模型：{} 请求信息：{} csv：{}", request.getModel(), JSON.toJSONString(request.getGoal()), csv);
+
+            ArrayList<MessageEntity> messages = new ArrayList<>();
+            messages.add(MessageEntity.builder()
+                    .content(String.format(prompt, request.getGoal().getContent(), request.getChartType(), csv))
+                    .role(request.getGoal().getRole())
+                    .name(request.getGoal().getName())
+                    .build());
+            ChatProcessAggregate chatProcessAggregate = ChatProcessAggregate.builder()
+                    .openid(openid)
+                    .model(request.getModel())
+                    .messages(messages)
+                    .build();
+            return chatService.completions(emitter, chatProcessAggregate);
+        } catch (Exception e) {
+            log.error("流式应答，请求模型：{} 发生异常", request.getModel(), e);
+            throw new ChatGPTException(e.getMessage());
+        }
     }
-
 
 
     @RequestMapping(value = "account", method = RequestMethod.GET)
@@ -156,7 +168,7 @@ public class ChatGPTAIServiceController {
                     .info(Constants.ResponseCode.SUCCESS.getInfo())
                     .data(userAccountQuotaEntity)
                     .build();
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("获取用户信息失败，token: {}", token);
             return Response.<UserAccountQuotaEntity>builder()
                     .code(Constants.ResponseCode.TOKEN_ERROR.getCode())

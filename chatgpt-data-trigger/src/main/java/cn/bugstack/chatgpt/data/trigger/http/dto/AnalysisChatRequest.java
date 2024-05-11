@@ -12,9 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AnalysisChatRequest {
     private String model = ChatGPTModel.GPT_3_5_TURBO.getCode();
-
     private String name;
-
     /**
      * 分析目标
      */
@@ -24,6 +22,8 @@ public class AnalysisChatRequest {
      * 图表类型
      */
     private String chartType;
-
+    /**
+     * 文件hash
+     */
     private String filehash;
 }

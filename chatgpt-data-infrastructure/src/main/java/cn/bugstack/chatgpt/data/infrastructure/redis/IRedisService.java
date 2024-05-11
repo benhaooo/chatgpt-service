@@ -2,6 +2,8 @@ package cn.bugstack.chatgpt.data.infrastructure.redis;
 
 import org.redisson.api.*;
 
+import java.util.List;
+
 /**
  * Redis 服务
  */
@@ -140,6 +142,9 @@ public interface IRedisService {
      * @return 值
      */
     String getFromList(String key, int index);
+
+
+    List<String> getListAll(String key);
 
     /**
      * 将指定的键值对添加到哈希表中

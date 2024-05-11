@@ -6,7 +6,7 @@ import cn.bugstack.chatgpt.data.domain.openai.service.channel.OpenAiGroupService
 import cn.bugstack.chatgpt.data.domain.openai.service.channel.model.IGenerativeModelService;
 import cn.bugstack.chatgpt.data.domain.openai.service.channel.model.impl.ImageGenerativeModelServiceImpl;
 import cn.bugstack.chatgpt.data.domain.openai.service.channel.model.impl.TextGenerativeModelServiceImpl;
-import cn.bugstack.chatgpt.session.OpenAiSession;
+import cn.bugstack.openai.session.OpenAiSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
@@ -32,7 +32,7 @@ public class ChatGPTService implements OpenAiGroupService {
     }
 
     @Override
-    public void doMessageResponse(ChatProcessAggregate chatProcess, ResponseBodyEmitter emitter) throws IOException {
+    public void doMessageResponse(ChatProcessAggregate chatProcess, ResponseBodyEmitter emitter) throws Exception {
         GenerativeModelVO generativeModelVO = chatProcess.getGenerativeModelVO();
         generativeModelGroup.get(generativeModelVO).doMessageResponse(chatProcess, emitter);
     }

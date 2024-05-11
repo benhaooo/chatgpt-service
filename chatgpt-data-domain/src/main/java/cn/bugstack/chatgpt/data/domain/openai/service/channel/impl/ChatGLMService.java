@@ -1,7 +1,7 @@
 package cn.bugstack.chatgpt.data.domain.openai.service.channel.impl;
 
-import it.hao.chatglm.model.*;
-import it.hao.chatglm.session.OpenAiSession;
+import cn.bugstack.chatglm.model.*;
+import cn.bugstack.chatglm.session.OpenAiSession;
 import cn.bugstack.chatgpt.data.domain.openai.model.aggregates.ChatProcessAggregate;
 import cn.bugstack.chatgpt.data.domain.openai.model.entity.MessageEntity;
 import cn.bugstack.chatgpt.data.domain.openai.service.channel.OpenAiGroupService;
@@ -11,18 +11,14 @@ import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.sse.EventSource;
 import okhttp3.sse.EventSourceListener;
-import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
 
-import javax.annotation.Resource;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -83,7 +79,6 @@ public class ChatGLMService implements OpenAiGroupService {
             @Override
             public void onEvent(EventSource eventSource, @Nullable String id, @Nullable String type, String data) {
                 ChatCompletionResponse response = JSON.parseObject(data, ChatCompletionResponse.class);
-
                 // 发送信息
                 if (EventType.add.getCode().equals(type)) {
                     try {

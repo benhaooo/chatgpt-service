@@ -10,6 +10,6 @@ import java.io.IOException;
  */
 public interface IGenerativeModelService {
 
-    void doMessageResponse(ChatProcessAggregate chatProcess, ResponseBodyEmitter emitter) throws IOException;
+    void doMessageResponse(ChatProcessAggregate chatProcess, ResponseBodyEmitter emitter) throws Exception;
 
 }
